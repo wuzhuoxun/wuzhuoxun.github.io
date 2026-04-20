@@ -26,3 +26,7 @@ Edit `index.html` and replace:
 3. Go to **Settings → Pages**.
 4. Set source to the main branch and root folder.
 5. Visit `https://yourusername.github.io`.
+
+## Pixel Font Update
+
+The site now uses pixel-style cyberpunk typography across the whole interface via Google Fonts (`Press Start 2P` for display UI text and `VT323` for readable body text). No font files are bundled in this folder. If Google Fonts cannot load, the page falls back to monospace system fonts.

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
+
 :root {
   --bg: #070816;
   --bg-2: #0c1030;
@@ -451,4 +453,126 @@ h3 {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* Pixel cyberpunk typography override */
+:root {
+  --font-pixel: "VT323", "Courier New", monospace;
+  --font-display: "Press Start 2P", "VT323", "Courier New", monospace;
+  --font: var(--font-pixel);
+}
+
+html {
+  font-size: 18px;
+}
+
+body,
+button,
+a,
+p,
+span,
+strong,
+h1,
+h2,
+h3,
+article,
+footer {
+  font-family: var(--font-pixel);
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+}
+
+::selection {
+  color: var(--bg);
+  background: var(--cyan);
+}
+
+.status-bar,
+.eyebrow,
+.panel-label,
+.terminal-line,
+.taskbar,
+h1,
+.window-body h2,
+h3,
+.year,
+.titlebar strong,
+.folder,
+.close {
+  font-family: var(--font-display);
+}
+
+h1 {
+  font-size: clamp(1.55rem, 5vw, 4.25rem);
+  line-height: 1.18;
+  letter-spacing: 0.02em;
+}
+
+.tagline {
+  font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+  line-height: 1.45;
+}
+
+.window-body h2 {
+  font-size: clamp(1.1rem, 2.3vw, 1.55rem);
+  line-height: 1.55;
+}
+
+.window-body p {
+  font-size: 1.35rem;
+  line-height: 1.45;
+}
+
+.chips span,
+.contact-links a {
+  font-size: 1.25rem;
+  line-height: 1.1;
+}
+
+.status-bar,
+.eyebrow,
+.panel-label,
+.terminal-line,
+.taskbar,
+.titlebar strong,
+.year,
+h3,
+.folder {
+  letter-spacing: 0.08em;
+}
+
+.status-bar,
+.panel-label,
+.terminal-line,
+.titlebar strong,
+.year {
+  font-size: 0.6rem;
+}
+
+.folder {
+  font-size: 0.68rem;
+  line-height: 1.55;
+}
+
+h3 {
+  font-size: 0.72rem;
+  line-height: 1.65;
+}
+
+.close {
+  font-size: 0.9rem;
+}
+
+.hero,
+.research-panel,
+.chips span,
+.contact-links a,
+.folder,
+.folder-icon,
+.folder-icon::before,
+.window,
+.timeline article,
+.grid-list article,
+.taskbar {
+  border-radius: 0;
 }
