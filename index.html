@@ -3,230 +3,144 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YOUR ENGLISH NAME | Cyberpunk Portfolio</title>
+  <title>Your English Name | Cyberpunk Research Desktop</title>
+  <meta name="description" content="A cyberpunk blue-pink GitHub Pages personal homepage with desktop-style folder windows." />
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-  <div class="noise"></div>
-  <div class="scanlines"></div>
-  <div class="grid-bg"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
 
-  <main class="desktop">
-    <section class="hero">
-      <p class="boot-line">SYSTEM ONLINE // PERSONAL HOMEPAGE LOADED</p>
+  <main class="desktop" id="desktop">
+    <section class="hero" aria-label="Profile introduction">
+      <div class="status-bar">
+        <span class="status-dot"></span>
+        <span>ONLINE</span>
+        <span class="divider">//</span>
+        <span>GITHUB.IO DESKTOP</span>
+      </div>
 
-      <h1 class="name-glitch" data-text="YOUR ENGLISH NAME">
-        YOUR ENGLISH NAME
+      <p class="eyebrow">Personal Research Interface</p>
+      <h1>
+        <span class="glitch" data-text="YOUR ENGLISH NAME">YOUR ENGLISH NAME</span>
+        <span class="slash"> / </span>
+        <span class="cn-name">YOUR CHINESE NAME</span>
       </h1>
-
-      <h2 class="cn-name">YOUR CHINESE NAME</h2>
-
-      <p class="tagline">
-        A one-sentence introduction about who you are, what you study, and what kind of future you want to build.
-      </p>
+      <p class="tagline">Designing intelligent systems at the intersection of computation, creativity, and human-centered research.</p>
 
       <div class="research-panel">
-        <span class="panel-label">RESEARCH INTERESTS</span>
-        <p>
-          Human-Computer Interaction · Artificial Intelligence · Digital Humanities ·
-          Computational Social Science · Creative Technology
-        </p>
+        <span class="panel-label">Research Interests</span>
+        <div class="chips" aria-label="Research interests">
+          <span>Human-Computer Interaction</span>
+          <span>Artificial Intelligence</span>
+          <span>Computational Design</span>
+          <span>Digital Humanities</span>
+        </div>
       </div>
     </section>
 
-    <section class="folder-row" aria-label="Homepage modules">
-      <button class="folder" data-window="aboutWindow">
-        <span class="folder-tab"></span>
-        <span class="folder-body">
-          <span class="folder-icon">▣</span>
-          <span class="folder-title">ABOUT ME</span>
-        </span>
+    <section class="folder-dock" aria-label="Desktop folders">
+      <button class="folder" data-window="about" aria-controls="window-about">
+        <span class="folder-icon"></span>
+        <span>About Me</span>
       </button>
+      <button class="folder" data-window="education" aria-controls="window-education">
+        <span class="folder-icon"></span>
+        <span>Education</span>
+      </button>
+      <button class="folder" data-window="interest" aria-controls="window-interest">
+        <span class="folder-icon"></span>
+        <span>Interest</span>
+      </button>
+      <button class="folder" data-window="contact" aria-controls="window-contact">
+        <span class="folder-icon"></span>
+        <span>Contact</span>
+      </button>
+    </section>
 
-      <button class="folder" data-window="educationWindow">
-        <span class="folder-tab"></span>
-        <span class="folder-body">
-          <span class="folder-icon">▣</span>
-          <span class="folder-title">EDUCATION</span>
-        </span>
-      </button>
+    <section class="window active" id="window-about" data-window-panel="about" aria-label="About Me window">
+      <div class="titlebar">
+        <div class="window-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
+        <strong>about_me.exe</strong>
+        <button class="close" aria-label="Close About Me window">×</button>
+      </div>
+      <div class="window-body">
+        <h2>About Me</h2>
+        <p>I am a researcher and builder interested in how emerging technologies reshape the way people learn, create, and collaborate. My work combines analytical thinking with experimental design to turn complex questions into usable systems.</p>
+        <p class="terminal-line">$ current_focus: building thoughtful, interpretable, and human-centered digital experiences</p>
+      </div>
+    </section>
 
-      <button class="folder" data-window="interestWindow">
-        <span class="folder-tab"></span>
-        <span class="folder-body">
-          <span class="folder-icon">▣</span>
-          <span class="folder-title">INTEREST</span>
-        </span>
-      </button>
+    <section class="window" id="window-education" data-window-panel="education" aria-label="Education window">
+      <div class="titlebar">
+        <div class="window-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
+        <strong>education.log</strong>
+        <button class="close" aria-label="Close Education window">×</button>
+      </div>
+      <div class="window-body">
+        <h2>Education</h2>
+        <div class="timeline">
+          <article>
+            <span class="year">20XX — 20XX</span>
+            <h3>Degree Name, University Name</h3>
+            <p>Relevant coursework, research lab, thesis topic, or academic honors.</p>
+          </article>
+          <article>
+            <span class="year">20XX — 20XX</span>
+            <h3>Previous Degree or Exchange Program</h3>
+            <p>Briefly describe your academic background and the skills you developed.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-      <button class="folder" data-window="contactWindow">
-        <span class="folder-tab"></span>
-        <span class="folder-body">
-          <span class="folder-icon">▣</span>
-          <span class="folder-title">CONTACT</span>
-        </span>
-      </button>
+    <section class="window" id="window-interest" data-window-panel="interest" aria-label="Interest window">
+      <div class="titlebar">
+        <div class="window-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
+        <strong>interest.folder</strong>
+        <button class="close" aria-label="Close Interest window">×</button>
+      </div>
+      <div class="window-body">
+        <h2>Interest</h2>
+        <div class="grid-list">
+          <article>
+            <h3>Research</h3>
+            <p>AI-assisted creativity, interaction design, data-driven storytelling, and responsible technology.</p>
+          </article>
+          <article>
+            <h3>Making</h3>
+            <p>Prototyping websites, visual systems, experimental interfaces, and interactive narratives.</p>
+          </article>
+          <article>
+            <h3>Beyond Work</h3>
+            <p>Photography, cyberpunk aesthetics, indie games, electronic music, and urban exploration.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="window" id="window-contact" data-window-panel="contact" aria-label="Contact window">
+      <div class="titlebar">
+        <div class="window-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
+        <strong>contact.link</strong>
+        <button class="close" aria-label="Close Contact window">×</button>
+      </div>
+      <div class="window-body">
+        <h2>Contact</h2>
+        <p>Feel free to reach out for research collaboration, academic discussion, or creative technology projects.</p>
+        <div class="contact-links">
+          <a href="mailto:your.email@example.com">Email</a>
+          <a href="https://github.com/yourusername" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/yourusername" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a href="https://scholar.google.com/" target="_blank" rel="noreferrer">Google Scholar</a>
+        </div>
+      </div>
     </section>
   </main>
 
-  <div class="screen-shade" id="screenShade" aria-hidden="true"></div>
-
-  <section class="window-layer" aria-label="Popup windows">
-    <article class="cyber-window" id="aboutWindow" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
-      <header class="window-bar">
-        <div class="window-dots">
-          <span></span><span></span><span></span>
-        </div>
-        <h3 id="aboutTitle">ABOUT_ME.exe</h3>
-        <button class="window-close" aria-label="Close ABOUT ME window">×</button>
-      </header>
-
-      <div class="window-content">
-        <p class="terminal-line">
-          &gt; Opening personal profile...
-        </p>
-
-        <p>
-          I am <strong>YOUR ENGLISH NAME</strong>, also known as
-          <strong>YOUR CHINESE NAME</strong>. I am interested in building thoughtful,
-          human-centered technologies that connect research, design, and real-world impact.
-        </p>
-
-        <p>
-          My work explores how people interact with intelligent systems, digital culture,
-          and emerging interfaces. I enjoy turning abstract ideas into clear, interactive,
-          and visually expressive projects.
-        </p>
-
-        <div class="window-actions">
-          <button class="soft-close">Close Window</button>
-        </div>
-      </div>
-    </article>
-
-    <article class="cyber-window" id="educationWindow" role="dialog" aria-modal="true" aria-labelledby="educationTitle">
-      <header class="window-bar">
-        <div class="window-dots">
-          <span></span><span></span><span></span>
-        </div>
-        <h3 id="educationTitle">EDUCATION.dat</h3>
-        <button class="window-close" aria-label="Close EDUCATION window">×</button>
-      </header>
-
-      <div class="window-content">
-        <p class="terminal-line">
-          &gt; Loading academic timeline...
-        </p>
-
-        <div class="timeline">
-          <div class="timeline-item">
-            <span class="year">20XX — Present</span>
-            <h4>Your University / Institution</h4>
-            <p>
-              Your degree, major, research direction, lab, or academic program.
-            </p>
-          </div>
-
-          <div class="timeline-item">
-            <span class="year">20XX — 20XX</span>
-            <h4>Previous University / School</h4>
-            <p>
-              Relevant coursework, honors, thesis, exchange experience, or selected projects.
-            </p>
-          </div>
-        </div>
-
-        <div class="window-actions">
-          <button class="soft-close">Close Window</button>
-        </div>
-      </div>
-    </article>
-
-    <article class="cyber-window" id="interestWindow" role="dialog" aria-modal="true" aria-labelledby="interestTitle">
-      <header class="window-bar">
-        <div class="window-dots">
-          <span></span><span></span><span></span>
-        </div>
-        <h3 id="interestTitle">INTEREST.sys</h3>
-        <button class="window-close" aria-label="Close INTEREST window">×</button>
-      </header>
-
-      <div class="window-content">
-        <p class="terminal-line">
-          &gt; Scanning research and creative interests...
-        </p>
-
-        <div class="chip-grid">
-          <span>Artificial Intelligence</span>
-          <span>Human-Computer Interaction</span>
-          <span>Digital Media</span>
-          <span>Creative Coding</span>
-          <span>Data Visualization</span>
-          <span>Cyberculture</span>
-          <span>Design Futures</span>
-          <span>Social Computing</span>
-        </div>
-
-        <p>
-          I am especially interested in how intelligent systems can become more transparent,
-          expressive, and meaningful in everyday life.
-        </p>
-
-        <div class="window-actions">
-          <button class="soft-close">Close Window</button>
-        </div>
-      </div>
-    </article>
-
-    <article class="cyber-window" id="contactWindow" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
-      <header class="window-bar">
-        <div class="window-dots">
-          <span></span><span></span><span></span>
-        </div>
-        <h3 id="contactTitle">CONTACT.link</h3>
-        <button class="window-close" aria-label="Close CONTACT window">×</button>
-      </header>
-
-      <div class="window-content">
-        <p class="terminal-line">
-          &gt; Establishing connection...
-        </p>
-
-        <ul class="contact-list">
-          <li>
-            <span>Email</span>
-            <a href="mailto:your.email@example.com">your.email@example.com</a>
-          </li>
-          <li>
-            <span>GitHub</span>
-            <a href="https://github.com/yourusername" target="_blank" rel="noreferrer">
-              github.com/yourusername
-            </a>
-          </li>
-          <li>
-            <span>LinkedIn</span>
-            <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noreferrer">
-              linkedin.com/in/yourusername
-            </a>
-          </li>
-          <li>
-            <span>Location</span>
-            <p>Your City, Your Country</p>
-          </li>
-        </ul>
-
-        <div class="window-actions">
-          <button class="soft-close">Close Window</button>
-        </div>
-      </div>
-    </article>
-  </section>
-
-  <footer class="status-bar">
-    <span>CYBER DESKTOP v2.0</span>
-    <span>PRESS ESC TO CLOSE WINDOWS</span>
-    <span id="clock">00:00</span>
+  <footer class="taskbar">
+    <span>NEON_OS</span>
+    <span id="clock">--:--</span>
   </footer>
 
   <script src="script.js"></script>
