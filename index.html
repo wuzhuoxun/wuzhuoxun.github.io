@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your English Name | Cyberpunk Research Desktop</title>
+  <meta name="description" content="A cyberpunk blue-pink GitHub Pages personal homepage with desktop-style folder windows." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <main class="desktop" id="desktop">
+    <section class="hero" aria-label="Profile introduction">
+      <div class="status-bar">
+        <span class="status-dot"></span>
+        <span>ONLINE</span>
+        <span class="divider">//</span>
+        <span>GITHUB.IO DESKTOP</span>
+      </div>
+
+      <p class="eyebrow">Personal Research Interface</p>
+      <h1>
+        <span class="glitch" data-text="YOUR ENGLISH NAME">YOUR ENGLISH NAME</span>
+        <span class="slash"> / </span>
+        <span class="cn-name">YOUR CHINESE NAME</span>
+      </h1>
+      <p class="tagline">Designing intelligent systems at the intersection of computation, creativity, and human-centered research.</p>
+
+      <div class="research-panel">
+        <span class="panel-label">Research Interests</span>
+        <div class="chips" aria-label="Research interests">
+          <span>Human-Computer Interaction</span>
+          <span>Artificial Intelligence</span>
+          <span>Computational Design</span>
+          <span>Digital Humanities</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="folder-dock" aria-label="Desktop folders">
+      <button class="folder" data-window="about" aria-controls="window-about">
+        <span class="folder-icon"></span>
+        <span>About Me</span>
+      </button>
+      <button class="folder" data-window="education" aria-controls="window-education">
+        <span class="folder-icon"></span>
+        <span>Education</span>
+      </button>
+      <button class="folder" data-window="interest" aria-controls="window-interest">
+        <span class="folder-icon"></span>
+        <span>Interest</span>
+      </button>
+      <button class="folder" data-window="contact" aria-controls="window-contact">
+        <span class="folder-icon"></span>
+        <span>Contact</span>
+      </button>
+    </section>
+
+    <section class="window active" id="window-about" data-window-panel="about" aria-label="About Me window">
+      <div class="titlebar">
+        <div class="window-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
+        <strong>about_me.exe</strong>
+        <button class="close" aria-label="Close About Me window">×</button>
+      </div>
+      <div class="window-body">
+        <h2>About Me</h2>
+        <p>I am a researcher and builder interested in how emerging technologies reshape the way people learn, create, and collaborate. My work combines analytical thinking with experimental design to turn complex questions into usable systems.</p>
+        <p class="terminal-line">$ current_focus: building thoughtful, interpretable, and human-centered digital experiences</p>
+      </div>
+    </section>
+
+    <section class="window" id="window-education" data-window-panel="education" aria-label="Education window">
+      <div class="titlebar">
+        <div class="window-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
+        <strong>education.log</strong>
+        <button class="close" aria-label="Close Education window">×</button>
+      </div>
+      <div class="window-body">
+        <h2>Education</h2>
+        <div class="timeline">
+          <article>
+            <span class="year">20XX — 20XX</span>
+            <h3>Degree Name, University Name</h3>
+            <p>Relevant coursework, research lab, thesis topic, or academic honors.</p>
+          </article>
+          <article>
+            <span class="year">20XX — 20XX</span>
+            <h3>Previous Degree or Exchange Program</h3>
+            <p>Briefly describe your academic background and the skills you developed.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="window" id="window-interest" data-window-panel="interest" aria-label="Interest window">
+      <div class="titlebar">
+        <div class="window-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
+        <strong>interest.folder</strong>
+        <button class="close" aria-label="Close Interest window">×</button>
+      </div>
+      <div class="window-body">
+        <h2>Interest</h2>
+        <div class="grid-list">
+          <article>
+            <h3>Research</h3>
+            <p>AI-assisted creativity, interaction design, data-driven storytelling, and responsible technology.</p>
+          </article>
+          <article>
+            <h3>Making</h3>
+            <p>Prototyping websites, visual systems, experimental interfaces, and interactive narratives.</p>
+          </article>
+          <article>
+            <h3>Beyond Work</h3>
+            <p>Photography, cyberpunk aesthetics, indie games, electronic music, and urban exploration.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="window" id="window-contact" data-window-panel="contact" aria-label="Contact window">
+      <div class="titlebar">
+        <div class="window-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
+        <strong>contact.link</strong>
+        <button class="close" aria-label="Close Contact window">×</button>
+      </div>
+      <div class="window-body">
+        <h2>Contact</h2>
+        <p>Feel free to reach out for research collaboration, academic discussion, or creative technology projects.</p>
+        <div class="contact-links">
+          <a href="mailto:your.email@example.com">Email</a>
+          <a href="https://github.com/yourusername" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/yourusername" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a href="https://scholar.google.com/" target="_blank" rel="noreferrer">Google Scholar</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="taskbar">
+    <span>NEON_OS</span>
+    <span id="clock">--:--</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
