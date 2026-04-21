@@ -32,3 +32,9 @@ Create a repository named `yourusername.github.io`, upload all files to the root
 - About Me focus box now uses `Research Focus`.
 - Interest only lists extracurricular hobbies.
 - Contact removes mobile, updates LinkedIn, and adds Xiaohongshu ID.
+
+
+## Contact links in this version
+- GitHub: https://github.com/wuzhuoxun
+- LinkedIn: https://www.linkedin.com/in/zhuoxun-wu-liverpool/
+- RedNote: https://www.xiaohongshu.com/user/profile/62c6268b000000000303e7ea

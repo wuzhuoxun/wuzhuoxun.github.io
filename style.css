@@ -616,21 +616,35 @@ h3 {
     padding-bottom: 0;
   }
 
+  .name-stack {
+    gap: 14px;
+  }
+
+  .name-stack .glitch {
+    font-size: clamp(2.15rem, 10.8vw, 3rem);
+    line-height: 1.2;
+  }
+
+  .cn-name {
+    font-size: clamp(1.18rem, 5.2vw, 1.65rem);
+  }
+
   .folder-dock {
     grid-template-columns: repeat(2, minmax(118px, 1fr));
-    gap: 34px 18px;
+    column-gap: 18px;
+    row-gap: 72px;
     width: min(100%, 360px);
-    margin-top: 36px;
+    margin-top: 42px;
     align-items: start;
   }
 
   .folder {
-    min-height: 152px;
-    gap: 10px;
+    min-height: 166px;
+    gap: 16px;
   }
 
   .folder-icon {
-    width: 108px;
+    width: 106px;
     height: 82px;
   }
 
@@ -642,14 +656,27 @@ h3 {
   }
 
   .folder span:last-child {
-    font-size: 0.98rem;
+    display: block;
+    position: relative;
+    z-index: 2;
+    margin-top: 8px;
+    font-size: 1.05rem;
     line-height: 1.55;
-    max-width: 132px;
+    max-width: 140px;
   }
 
   .tagline {
     min-height: 3.1em;
     padding: 0 6px;
+  }
+
+  .contact-links {
+    gap: 10px;
+  }
+
+  .contact-links a {
+    font-size: 1.05rem;
+    padding: 10px 13px;
   }
 
   .typing-tagline {
