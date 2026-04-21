@@ -631,20 +631,19 @@ h3 {
 
   .folder-dock {
     grid-template-columns: repeat(2, minmax(118px, 1fr));
-    column-gap: 18px;
-    row-gap: 72px;
+    gap: 34px 18px;
     width: min(100%, 360px);
-    margin-top: 42px;
+    margin-top: 36px;
     align-items: start;
   }
 
   .folder {
-    min-height: 166px;
-    gap: 16px;
+    min-height: 152px;
+    gap: 10px;
   }
 
   .folder-icon {
-    width: 106px;
+    width: 108px;
     height: 82px;
   }
 
