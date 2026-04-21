@@ -25,3 +25,10 @@ Edit the content directly in `index.html`:
 
 ## Deploy to GitHub Pages
 Create a repository named `yourusername.github.io`, upload all files to the root directory, and enable GitHub Pages if needed.
+
+
+## Latest edits
+- Improved mobile folder spacing.
+- About Me focus box now uses `Research Focus`.
+- Interest only lists extracurricular hobbies.
+- Contact removes mobile, updates LinkedIn, and adds Xiaohongshu ID.

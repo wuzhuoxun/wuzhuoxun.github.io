@@ -521,7 +521,8 @@ h3 {
   gap: 12px;
 }
 
-.contact-links a {
+.contact-links a,
+.contact-links .contact-pill {
   border: 1px solid rgba(70, 246, 255, 0.32);
   border-radius: 999px;
   padding: 10px 14px;
@@ -568,29 +569,91 @@ h3 {
   50%, 100% { opacity: 0; }
 }
 
+
+/* Mobile spacing + stable folder badge positioning */
+.folder {
+  position: relative;
+  min-height: 146px;
+}
+
+.folder::after {
+  position: absolute;
+  top: 34px;
+  right: 34px;
+  margin: 0;
+  z-index: 2;
+}
+
+.research-focus-box h3 {
+  margin: 0 0 10px;
+  color: var(--cyan);
+}
+
+.research-focus-box p {
+  margin: 0;
+}
+
+.hobbies-only {
+  grid-template-columns: 1fr;
+}
+
+.contact-pill {
+  border: 1px solid rgba(70, 246, 255, 0.32);
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: rgba(70, 246, 255, 0.07);
+  color: var(--text);
+  text-decoration: none;
+  box-shadow: inset 0 0 14px rgba(70, 246, 255, 0.08);
+}
+
 @media (max-width: 760px) {
   .desktop {
-    padding-top: 26px;
+    padding: 26px 18px 120px;
+  }
+
+  .hero {
+    padding-bottom: 0;
   }
 
   .folder-dock {
-    grid-template-columns: repeat(2, minmax(110px, 150px));
-    gap: 18px 12px;
+    grid-template-columns: repeat(2, minmax(118px, 1fr));
+    gap: 34px 18px;
+    width: min(100%, 360px);
+    margin-top: 36px;
+    align-items: start;
+  }
+
+  .folder {
+    min-height: 152px;
+    gap: 10px;
   }
 
   .folder-icon {
-    width: 112px;
-    height: 86px;
+    width: 108px;
+    height: 82px;
   }
 
   .folder::after {
-    margin-top: -78px;
-    margin-left: 48px;
-    font-size: 0.62rem;
+    top: 30px;
+    right: 22px;
+    margin: 0;
+    font-size: 0.58rem;
   }
 
   .folder span:last-child {
-    font-size: 0.92rem;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    max-width: 132px;
+  }
+
+  .tagline {
+    min-height: 3.1em;
+    padding: 0 6px;
+  }
+
+  .typing-tagline {
+    align-items: flex-start;
   }
 
   .grid-list {
