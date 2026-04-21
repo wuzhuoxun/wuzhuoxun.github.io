@@ -198,15 +198,21 @@ h1 {
   animation: glitch 2.7s infinite linear alternate;
 }
 
-.typing-title {
+.name-stack {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 12px;
 }
 
-.typed-text {
-  min-height: 1.4em;
+.cn-name {
+  display: block;
+  color: var(--pink);
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2.4vw, 1.75rem);
+  line-height: 1.6;
+  text-shadow: var(--shadow-pink);
 }
 
 .typing-caret {
@@ -350,7 +356,7 @@ h1 {
   line-height: 1.45;
   color: var(--pink);
   text-shadow: 0 0 14px rgba(255, 79, 216, 0.5);
-  font-size: 0.9rem;
+  font-size: clamp(1.02rem, 1.45vw, 1.22rem);
 }
 
 .window {
@@ -466,6 +472,22 @@ h1 {
   font-size: 0.78rem;
 }
 
+.terminal-list {
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--cyan);
+  background: rgba(70, 246, 255, 0.07);
+}
+
+.terminal-list p {
+  margin: 8px 0;
+  color: var(--muted);
+}
+
+.terminal-list span {
+  color: var(--cyan);
+}
+
 .timeline article,
 .grid-list article {
   padding: 16px;
@@ -565,6 +587,10 @@ h3 {
     margin-top: -78px;
     margin-left: 48px;
     font-size: 0.62rem;
+  }
+
+  .folder span:last-child {
+    font-size: 0.92rem;
   }
 
   .grid-list {

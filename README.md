@@ -1,12 +1,13 @@
-# Cyberpunk GitHub Homepage (Pixel Version)
+# Zhuoxun Wu Cyberpunk GitHub Homepage
 
 A static GitHub Pages personal homepage with:
 - blue/pink cyberpunk color palette
 - pixel-style typography
-- centered hero section
+- centered bilingual name display
+- looping typewriter tagline
 - desktop-style clickable folder icons
 - draggable popup windows for About Me, Education, Interest, and Contact
-- no external asset folder needed for the folder icon (the icon is drawn directly in CSS)
+- no external asset folder needed for the folder icon
 
 ## Files
 - `index.html`
@@ -15,10 +16,9 @@ A static GitHub Pages personal homepage with:
 - `README.md`
 
 ## Customize
-Replace the placeholder content in `index.html`:
-- `YOUR ENGLISH NAME`
-- `YOUR CHINESE NAME`
-- tagline
+Edit the content directly in `index.html`:
+- name lines
+- looping tagline text in `data-texts`
 - education details
 - interest content
 - contact links

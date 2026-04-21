@@ -160,13 +160,6 @@ function runTypingLoop(element, options = {}) {
   setTimeout(tick, 500);
 }
 
-runTypingLoop(document.getElementById("typed-name"), {
-  typeSpeed: 120,
-  deleteSpeed: 70,
-  holdBeforeDelete: 1200,
-  holdBeforeNext: 350,
-});
-
 runTypingLoop(document.getElementById("typed-tagline"), {
   typeSpeed: 70,
   deleteSpeed: 42,
