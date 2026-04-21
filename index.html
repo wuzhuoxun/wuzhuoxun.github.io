@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your English Name | Cyberpunk Research Desktop</title>
+  <title>Your Name | Cyberpunk Personal Desktop</title>
   <meta name="description" content="A cyberpunk blue-pink GitHub Pages personal homepage with desktop-style folder windows." />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -21,27 +21,43 @@
       </div>
 
       <p class="eyebrow">Personal Research Interface</p>
-      <h1>
-        <span class="glitch" data-text="YOUR ENGLISH NAME">YOUR ENGLISH NAME</span>
+
+      <h1 class="typing-title">
+        <span
+          id="typed-name"
+          class="typed-text glitch"
+          data-text="YOUR ENGLISH NAME"
+          data-texts='["YOUR ENGLISH NAME","YOUR CHINESE NAME"]'
+          aria-live="polite"
+        >YOUR ENGLISH NAME</span>
+        <span class="typing-caret" aria-hidden="true"></span>
       </h1>
-      <p class="cn-name">YOUR CHINESE NAME</p>
-      <p class="tagline">Designing intelligent systems at the intersection of computation, creativity, and human-centered research.</p>
+
+      <p class="tagline typing-tagline">
+        <span
+          id="typed-tagline"
+          class="typed-subtext"
+          data-texts='["Electrical and Electronic Engieering Student,","University of Liverpool"]'
+          aria-live="polite"
+        >Electrical and Electronic Engieering Student,</span>
+        <span class="typing-caret small" aria-hidden="true"></span>
+      </p>
     </section>
 
     <section class="folder-dock" aria-label="Desktop folders">
-      <button class="folder" data-window="about" aria-controls="window-about">
+      <button class="folder" data-window="about" aria-controls="window-about" type="button">
         <span class="folder-icon" aria-hidden="true"></span>
         <span>About Me</span>
       </button>
-      <button class="folder" data-window="education" aria-controls="window-education">
+      <button class="folder" data-window="education" aria-controls="window-education" type="button">
         <span class="folder-icon" aria-hidden="true"></span>
         <span>Education</span>
       </button>
-      <button class="folder" data-window="interest" aria-controls="window-interest">
+      <button class="folder" data-window="interest" aria-controls="window-interest" type="button">
         <span class="folder-icon" aria-hidden="true"></span>
         <span>Interest</span>
       </button>
-      <button class="folder" data-window="contact" aria-controls="window-contact">
+      <button class="folder" data-window="contact" aria-controls="window-contact" type="button">
         <span class="folder-icon" aria-hidden="true"></span>
         <span>Contact</span>
       </button>
@@ -51,7 +67,7 @@
       <div class="titlebar">
         <div class="window-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
         <strong>about_me.exe</strong>
-        <button class="close" aria-label="Close About Me window">×</button>
+        <button class="close" aria-label="Close About Me window" type="button">×</button>
       </div>
       <div class="window-body">
         <h2>About Me</h2>
@@ -64,7 +80,7 @@
       <div class="titlebar">
         <div class="window-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
         <strong>education.log</strong>
-        <button class="close" aria-label="Close Education window">×</button>
+        <button class="close" aria-label="Close Education window" type="button">×</button>
       </div>
       <div class="window-body">
         <h2>Education</h2>
@@ -87,7 +103,7 @@
       <div class="titlebar">
         <div class="window-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
         <strong>interest.folder</strong>
-        <button class="close" aria-label="Close Interest window">×</button>
+        <button class="close" aria-label="Close Interest window" type="button">×</button>
       </div>
       <div class="window-body">
         <h2>Interest</h2>
@@ -112,7 +128,7 @@
       <div class="titlebar">
         <div class="window-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
         <strong>contact.link</strong>
-        <button class="close" aria-label="Close Contact window">×</button>
+        <button class="close" aria-label="Close Contact window" type="button">×</button>
       </div>
       <div class="window-body">
         <h2>Contact</h2>
