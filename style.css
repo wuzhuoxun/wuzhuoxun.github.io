@@ -8,8 +8,6 @@
   --purple: #8a5cff;
   --text: #ecf7ff;
   --muted: #b9c4e2;
-  --glass: rgba(10, 18, 48, 0.72);
-  --line: rgba(70, 246, 255, 0.28);
   --shadow-cyan: 0 0 22px rgba(70, 246, 255, 0.46);
   --shadow-pink: 0 0 22px rgba(255, 79, 216, 0.42);
   --font-pixel: "VT323", "Courier New", monospace;
@@ -115,7 +113,6 @@ footer {
 
 .status-bar,
 .eyebrow,
-.panel-label,
 .terminal-line,
 .taskbar,
 h1,
@@ -220,10 +217,10 @@ h1 {
 
 .folder-dock {
   display: grid;
-  grid-template-columns: repeat(4, minmax(110px, 160px));
+  grid-template-columns: repeat(4, minmax(110px, 170px));
   justify-content: center;
-  gap: 16px 28px;
-  max-width: 900px;
+  gap: 18px 28px;
+  max-width: 920px;
   margin: 42px auto 18px;
 }
 
@@ -233,7 +230,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 10px;
+  gap: 12px;
   border: 0;
   padding: 0;
   color: var(--text);
@@ -250,12 +247,73 @@ h1 {
 }
 
 .folder-icon {
+  position: relative;
   display: block;
-  width: 120px;
-  height: 90px;
-  background: center / contain no-repeat url("assets/folder-icon.svg");
+  width: 124px;
+  height: 92px;
   image-rendering: pixelated;
-  filter: drop-shadow(0 0 10px rgba(70, 246, 255, 0.45)) drop-shadow(0 0 14px rgba(255, 79, 216, 0.2));
+  filter: drop-shadow(0 0 10px rgba(70, 246, 255, 0.35)) drop-shadow(0 0 14px rgba(255, 79, 216, 0.18));
+}
+
+/* top tab */
+.folder-icon::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 18px;
+  width: 46px;
+  height: 12px;
+  background: rgba(70, 246, 255, 0.1);
+  border: 4px solid var(--cyan);
+  border-bottom: 0;
+  box-shadow: 0 0 10px rgba(70, 246, 255, 0.35);
+  clip-path: polygon(0 100%, 0 0, 76% 0, 88% 50%, 100% 50%, 100% 100%);
+}
+
+/* folder body */
+.folder-icon::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 22px;
+  width: 100px;
+  height: 56px;
+  background:
+    linear-gradient(135deg, rgba(70, 246, 255, 0.08), rgba(70, 246, 255, 0.02) 40%, rgba(255, 79, 216, 0.08) 100%);
+  border: 4px solid var(--cyan);
+  box-shadow:
+    inset 0 0 10px rgba(70, 246, 255, 0.08),
+    0 0 12px rgba(70, 246, 255, 0.25);
+  clip-path: polygon(0 24%, 19% 24%, 28% 0, 100% 0, 100% 78%, 94% 78%, 94% 86%, 90% 86%, 90% 93%, 8% 93%, 8% 86%, 4% 86%, 4% 78%, 0 78%);
+}
+
+/* inner diagonal + accent marks */
+.folder-icon {
+  background:
+    linear-gradient(135deg,
+      transparent 0 31%,
+      rgba(70, 246, 255, 0.95) 31% 33%,
+      transparent 33% 100%),
+    linear-gradient(135deg,
+      transparent 0 36%,
+      rgba(70, 246, 255, 0.65) 36% 38%,
+      transparent 38% 100%),
+    linear-gradient(0deg,
+      transparent 0 100%);
+  background-position: 24px 30px, 31px 30px, 0 0;
+  background-size: 62px 42px, 58px 42px, auto;
+  background-repeat: no-repeat;
+}
+
+.folder::after {
+  content: "//";
+  margin-top: -84px;
+  margin-left: 56px;
+  color: var(--pink);
+  text-shadow: 0 0 10px rgba(255, 79, 216, 0.7);
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  pointer-events: none;
 }
 
 .folder span:last-child {
@@ -448,8 +506,14 @@ h3 {
   }
 
   .folder-icon {
-    width: 108px;
-    height: 80px;
+    width: 112px;
+    height: 86px;
+  }
+
+  .folder::after {
+    margin-top: -78px;
+    margin-left: 48px;
+    font-size: 0.62rem;
   }
 
   .grid-list {

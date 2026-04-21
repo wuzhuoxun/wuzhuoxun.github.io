@@ -6,12 +6,13 @@ A static GitHub Pages personal homepage with:
 - centered hero section
 - desktop-style clickable folder icons
 - draggable popup windows for About Me, Education, Interest, and Contact
+- no external asset folder needed for the folder icon (the icon is drawn directly in CSS)
 
 ## Files
 - `index.html`
 - `style.css`
 - `script.js`
-- `assets/folder-icon.svg`
+- `README.md`
 
 ## Customize
 Replace the placeholder content in `index.html`:
