@@ -68,35 +68,17 @@ footer {
 
 .scanlines,
 .noise {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 20;
-}
-
-.scanlines {
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.025) 0,
-    rgba(255,255,255,0.025) 1px,
-    transparent 1px,
-    transparent 4px
-  );
-  mix-blend-mode: overlay;
-}
-
-.noise {
-  opacity: 0.18;
+  opacity: 0.08;
   image-rendering: pixelated;
   mix-blend-mode: screen;
   background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.48) 0 1px, transparent 1px),
-    radial-gradient(circle, rgba(70, 246, 255, 0.38) 0 1px, transparent 1px),
-    radial-gradient(circle, rgba(255, 79, 216, 0.28) 0 1px, transparent 1px),
-    repeating-conic-gradient(from 0deg, rgba(255,255,255,0.055) 0 25%, transparent 0 50%);
-  background-size: 7px 7px, 11px 11px, 17px 17px, 5px 5px;
-  background-position: 0 0, 2px 3px, 5px 1px, 0 0;
-  animation: pixelSnow 520ms steps(5, end) infinite;
+    radial-gradient(circle, rgba(255,255,255,0.28) 0 2px, transparent 2px),
+    radial-gradient(circle, rgba(70,246,255,0.22) 0 2px, transparent 2px),
+    radial-gradient(circle, rgba(255,79,216,0.18) 0 2px, transparent 2px),
+    repeating-conic-gradient(from 0deg, rgba(255,255,255,0.025) 0 25%, transparent 0 50%);
+  background-size: 18px 18px, 30px 30px, 46px 46px, 24px 24px;
+  background-position: 0 0, 9px 5px, 14px 11px, 0 0;
+  animation: pixelSnowSlow 3.8s steps(4, end) infinite;
 }
 
 .noise::before,
@@ -108,20 +90,20 @@ footer {
 }
 
 .noise::before {
-  opacity: 0.32;
+  opacity: 0.12;
   background:
-    linear-gradient(90deg, transparent 0 8%, rgba(255,255,255,0.06) 8.5% 9%, transparent 9.5% 100%),
-    repeating-linear-gradient(0deg, transparent 0 18px, rgba(70,246,255,0.055) 18px 20px, transparent 20px 42px);
-  animation: staticJitter 160ms steps(2, end) infinite;
+    repeating-linear-gradient(0deg, transparent 0 28px, rgba(70,246,255,0.035) 28px 30px, transparent 30px 64px),
+    repeating-linear-gradient(90deg, transparent 0 42px, rgba(255,79,216,0.028) 42px 44px, transparent 44px 88px);
+  animation: staticJitterSoft 4.4s steps(2, end) infinite;
 }
 
 .noise::after {
-  opacity: 0.18;
+  opacity: 0.10;
   background-image:
-    linear-gradient(90deg, rgba(255,79,216,0.18) 0 1px, transparent 1px),
-    linear-gradient(0deg, rgba(70,246,255,0.15) 0 1px, transparent 1px);
-  background-size: 64px 64px;
-  animation: pixelDrift 2.4s steps(8, end) infinite;
+    linear-gradient(90deg, rgba(255,79,216,0.10) 0 2px, transparent 2px),
+    linear-gradient(0deg, rgba(70,246,255,0.10) 0 2px, transparent 2px);
+  background-size: 96px 96px;
+  animation: pixelDriftSoft 8s steps(4, end) infinite;
 }
 
 ::selection {
@@ -131,6 +113,7 @@ footer {
 
 .desktop {
   position: relative;
+  z-index: 1;
   min-height: calc(100vh - 42px);
   padding: 46px clamp(18px, 5vw, 72px) 110px;
 }
@@ -379,22 +362,24 @@ h1 {
       transparent 0 36%,
       rgba(70, 246, 255, 0.65) 36% 38%,
       transparent 38% 100%),
+    linear-gradient(135deg,
+      transparent 0 44%,
+      rgba(255, 79, 216, 0.95) 44% 49%,
+      transparent 49% 100%),
+    linear-gradient(135deg,
+      transparent 0 44%,
+      rgba(255, 79, 216, 0.8) 44% 49%,
+      transparent 49% 100%),
     linear-gradient(0deg,
       transparent 0 100%);
-  background-position: 24px 30px, 31px 30px, 0 0;
-  background-size: 62px 42px, 58px 42px, auto;
+  background-position: 24px 30px, 31px 30px, 80px 50px, 95px 50px, 0 0;
+  background-size: 62px 42px, 58px 42px, 18px 18px, 18px 18px, auto;
   background-repeat: no-repeat;
 }
 
 .folder::after {
-  content: "//";
-  margin-top: -84px;
-  margin-left: 56px;
-  color: var(--pink);
-  text-shadow: 0 0 10px rgba(255, 79, 216, 0.7);
-  font-family: var(--font-display);
-  font-size: 0.7rem;
-  pointer-events: none;
+  content: none;
+  display: none;
 }
 
 .folder span:last-child {
@@ -637,30 +622,28 @@ h3 {
   50%, 100% { opacity: 0; }
 }
 
-@keyframes pixelSnow {
-  0% { background-position: 0 0, 2px 3px, 5px 1px, 0 0; }
-  20% { background-position: 13px 5px, -7px 11px, 19px 4px, 3px 2px; }
-  40% { background-position: -9px 17px, 21px -5px, -13px 12px, -2px 4px; }
-  60% { background-position: 24px -10px, 5px 19px, 7px -16px, 4px -1px; }
-  80% { background-position: -18px 8px, 16px 3px, 25px 20px, -4px 3px; }
-  100% { background-position: 7px 21px, -13px -8px, 12px 6px, 0 0; }
+@keyframes pixelSnowSlow {
+  0% { background-position: 0 0, 9px 5px, 14px 11px, 0 0; }
+  25% { background-position: 18px 0, -6px 14px, 28px -5px, 6px 6px; }
+  50% { background-position: 0 18px, 14px -6px, -8px 24px, 12px 0; }
+  75% { background-position: -18px 0, 8px 22px, 34px 18px, 0 12px; }
+  100% { background-position: 0 0, 9px 5px, 14px 11px, 0 0; }
 }
 
-@keyframes staticJitter {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(2px, -1px); }
-  100% { transform: translate(-1px, 1px); }
+@keyframes staticJitterSoft {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(1px, 1px); }
 }
 
-@keyframes pixelDrift {
-  0% { background-position: 0 0, 0 0; opacity: 0.13; }
-  50% { background-position: 32px -16px, -16px 32px; opacity: 0.22; }
-  100% { background-position: 64px -32px, -32px 64px; opacity: 0.13; }
+@keyframes pixelDriftSoft {
+  0% { background-position: 0 0, 0 0; opacity: 0.08; }
+  50% { background-position: 48px -24px, -24px 48px; opacity: 0.12; }
+  100% { background-position: 96px -48px, -48px 96px; opacity: 0.08; }
 }
 
 @keyframes neonBreath {
   0%, 100% {
-    opacity: 0.86;
+    opacity: 0.88;
     filter: saturate(1.08) brightness(0.96);
     text-shadow:
       0 0 3px rgba(255, 139, 234, 0.82),
@@ -668,7 +651,7 @@ h3 {
       0 0 18px rgba(255, 79, 216, 0.44),
       0 0 26px rgba(70, 246, 255, 0.16);
   }
-  42% {
+  40% {
     opacity: 1;
     filter: saturate(1.32) brightness(1.16);
     text-shadow:
@@ -677,45 +660,16 @@ h3 {
       0 0 32px rgba(255, 79, 216, 0.72),
       0 0 46px rgba(70, 246, 255, 0.32);
   }
-  47% { opacity: 0.72; }
+  47% { opacity: 0.76; }
   50% { opacity: 1; }
-  54% { opacity: 0.82; }
+  54% { opacity: 0.86; }
   58% { opacity: 1; }
 }
-  43% {
-    opacity: 1;
-    filter: saturate(1.32) brightness(1.18);
-    text-shadow:
-      0 0 6px rgba(255, 139, 234, 1),
-      0 0 16px rgba(255, 79, 216, 0.95),
-      0 0 34px rgba(255, 79, 216, 0.75),
-      0 0 50px rgba(70, 246, 255, 0.34);
-  }
-  49% {
-    opacity: 0.72;
-    filter: saturate(0.95) brightness(0.82);
-  }
-  53% {
-    opacity: 1;
-    filter: saturate(1.35) brightness(1.22);
-  }
-  57% {
-    opacity: 0.84;
-    filter: saturate(1.05) brightness(0.9);
-  }
-  63% {
-    opacity: 1;
-    filter: saturate(1.25) brightness(1.12);
-  }
-}
 
-
+/* Mobile spacing + stable folder badge positioning */
 .folder::after {
-  position: absolute;
-  top: 34px;
-  right: 34px;
-  margin: 0;
-  z-index: 2;
+  content: none;
+  display: none;
 }
 
 .research-focus-box h3 {
@@ -764,38 +718,36 @@ h3 {
   }
 
   .folder-dock {
-    grid-template-columns: repeat(2, minmax(118px, 1fr));
-    gap: 34px 18px;
-    width: min(100%, 360px);
+    grid-template-columns: repeat(2, minmax(126px, 1fr));
+    gap: 30px 18px;
+    width: min(100%, 370px);
     margin-top: 36px;
     align-items: start;
   }
 
   .folder {
-    min-height: 152px;
-    gap: 10px;
+    min-height: 128px;
+    gap: 8px;
   }
 
   .folder-icon {
-    width: 108px;
-    height: 82px;
+    width: 120px;
+    height: 90px;
   }
 
   .folder::after {
-    top: 30px;
-    right: 22px;
-    margin: 0;
-    font-size: 0.58rem;
+    content: none;
+    display: none;
   }
 
   .folder span:last-child {
     display: block;
     position: relative;
     z-index: 2;
-    margin-top: 8px;
+    margin-top: 0;
     font-size: 1.05rem;
-    line-height: 1.55;
-    max-width: 140px;
+    line-height: 1.35;
+    max-width: 150px;
   }
 
   .tagline {
