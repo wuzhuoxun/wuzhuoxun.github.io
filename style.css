@@ -486,7 +486,7 @@ h1 {
   line-height: 1.62;
   font-family: var(--font-readable);
   font-size: clamp(1rem, 1.65vw, 1.12rem);
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.005em;
 }
 
