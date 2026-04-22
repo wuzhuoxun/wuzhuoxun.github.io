@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Special+Elite&family=VT323&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Press+Start+2P&family=VT323&display=swap");
 
 :root {
   --bg: #070816;
@@ -12,7 +12,7 @@
   --shadow-pink: 0 0 22px rgba(255, 79, 216, 0.42);
   --font-pixel: "VT323", "Courier New", monospace;
   --font-display: "Press Start 2P", "VT323", "Courier New", monospace;
-  --font-readable: "Special Elite", "Courier New", monospace;
+  --font-readable: "Courier Prime", "Courier New", Courier, monospace;
   --font: var(--font-pixel);
 }
 
@@ -217,14 +217,16 @@ h1 {
 }
 
 .neon-cn {
-  color: #ff74e6;
+  color: #ff8bea;
+  filter: saturate(1.22);
   text-shadow:
-    0 0 6px rgba(255, 116, 230, 0.95),
-    0 0 14px rgba(255, 79, 216, 0.9),
-    0 0 28px rgba(255, 79, 216, 0.62),
-    0 0 40px rgba(70, 246, 255, 0.2);
-  animation: neonPulse 2.6s ease-in-out infinite;
+    0 0 4px rgba(255, 139, 234, 0.95),
+    0 0 10px rgba(255, 79, 216, 0.88),
+    0 0 22px rgba(255, 79, 216, 0.62),
+    0 0 34px rgba(70, 246, 255, 0.22);
+  animation: neonBreath 3.2s ease-in-out infinite;
 }
+
 
 .typing-caret {
   display: inline-block;
@@ -480,10 +482,12 @@ h1 {
 }
 
 .window-body p {
-  color: var(--muted);
-  line-height: 1.72;
+  color: #e9e2ea;
+  line-height: 1.62;
   font-family: var(--font-readable);
-  letter-spacing: 0.01em;
+  font-size: clamp(1rem, 1.65vw, 1.12rem);
+  font-weight: 700;
+  letter-spacing: 0.005em;
 }
 
 .window-body .year,
@@ -511,7 +515,7 @@ h1 {
 
 .terminal-list p {
   margin: 8px 0;
-  color: var(--muted);
+  color: #e9e2ea;
 }
 
 .terminal-list span {
@@ -599,29 +603,43 @@ h3 {
   50%, 100% { opacity: 0; }
 }
 
-@keyframes neonPulse {
+@keyframes neonBreath {
   0%, 100% {
+    opacity: 0.9;
+    filter: saturate(1.1) brightness(0.92);
     text-shadow:
-      0 0 6px rgba(255, 116, 230, 0.95),
-      0 0 14px rgba(255, 79, 216, 0.9),
-      0 0 28px rgba(255, 79, 216, 0.62),
-      0 0 40px rgba(70, 246, 255, 0.2);
+      0 0 3px rgba(255, 139, 234, 0.75),
+      0 0 8px rgba(255, 79, 216, 0.62),
+      0 0 18px rgba(255, 79, 216, 0.44),
+      0 0 26px rgba(70, 246, 255, 0.14);
   }
-  50% {
+  43% {
+    opacity: 1;
+    filter: saturate(1.32) brightness(1.18);
     text-shadow:
-      0 0 8px rgba(255, 116, 230, 1),
-      0 0 18px rgba(255, 79, 216, 1),
-      0 0 36px rgba(255, 79, 216, 0.82),
-      0 0 54px rgba(70, 246, 255, 0.34);
+      0 0 6px rgba(255, 139, 234, 1),
+      0 0 16px rgba(255, 79, 216, 0.95),
+      0 0 34px rgba(255, 79, 216, 0.75),
+      0 0 50px rgba(70, 246, 255, 0.34);
+  }
+  49% {
+    opacity: 0.72;
+    filter: saturate(0.95) brightness(0.82);
+  }
+  53% {
+    opacity: 1;
+    filter: saturate(1.35) brightness(1.22);
+  }
+  57% {
+    opacity: 0.84;
+    filter: saturate(1.05) brightness(0.9);
+  }
+  63% {
+    opacity: 1;
+    filter: saturate(1.25) brightness(1.12);
   }
 }
 
-
-/* Mobile spacing + stable folder badge positioning */
-.folder {
-  position: relative;
-  min-height: 146px;
-}
 
 .folder::after {
   position: absolute;
