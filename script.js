@@ -169,3 +169,48 @@ runTypingLoop(document.getElementById("typed-tagline"), {
 
 updateClock();
 setInterval(updateClock, 1000 * 30);
+
+
+function runScrambleText(element, finalText, options = {}) {
+  if (!element || !finalText) return;
+
+  const chars = options.chars ?? "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/\\[]{}#@!$%&*?";
+  const revealStep = options.revealStep ?? 1 / Math.max(finalText.length, 1);
+  const intervalTime = options.intervalTime ?? 45;
+  const startDelay = options.startDelay ?? 0;
+
+  let progress = 0;
+  element.classList.add("is-loading");
+
+  setTimeout(() => {
+    const interval = setInterval(() => {
+      progress += revealStep;
+
+      const visibleCount = Math.floor(progress * finalText.length);
+      const scrambled = finalText
+        .split("")
+        .map((char, index) => {
+          if (char === " ") return " ";
+          if (index < visibleCount) return finalText[index];
+          return chars[Math.floor(Math.random() * chars.length)];
+        })
+        .join("");
+
+      element.textContent = scrambled;
+
+      if (visibleCount >= finalText.length) {
+        clearInterval(interval);
+        element.textContent = finalText;
+        element.classList.remove("is-loading");
+      }
+    }, intervalTime);
+  }, startDelay);
+}
+
+document.querySelectorAll(".folder-label").forEach((label, index) => {
+  runScrambleText(label, label.dataset.final || label.textContent.trim(), {
+    startDelay: 500 + index * 180,
+    intervalTime: 48,
+    revealStep: 1 / Math.max((label.dataset.final || label.textContent.trim()).length, 1)
+  });
+});

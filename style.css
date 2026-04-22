@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Special+Elite&family=VT323&display=swap");
 
 :root {
   --bg: #070816;
@@ -12,6 +12,7 @@
   --shadow-pink: 0 0 22px rgba(255, 79, 216, 0.42);
   --font-pixel: "VT323", "Courier New", monospace;
   --font-display: "Press Start 2P", "VT323", "Courier New", monospace;
+  --font-readable: "Special Elite", "Courier New", monospace;
   --font: var(--font-pixel);
 }
 
@@ -215,6 +216,16 @@ h1 {
   text-shadow: var(--shadow-pink);
 }
 
+.neon-cn {
+  color: #ff74e6;
+  text-shadow:
+    0 0 6px rgba(255, 116, 230, 0.95),
+    0 0 14px rgba(255, 79, 216, 0.9),
+    0 0 28px rgba(255, 79, 216, 0.62),
+    0 0 40px rgba(70, 246, 255, 0.2);
+  animation: neonPulse 2.6s ease-in-out infinite;
+}
+
 .typing-caret {
   display: inline-block;
   width: 0.7em;
@@ -359,6 +370,15 @@ h1 {
   font-size: clamp(1.02rem, 1.45vw, 1.22rem);
 }
 
+.folder-label {
+  min-height: 1.5em;
+}
+
+.folder-label.is-loading {
+  color: #ffc7f5;
+  text-shadow: 0 0 8px rgba(255, 79, 216, 0.75), 0 0 14px rgba(70, 246, 255, 0.28);
+}
+
 .window {
   display: none;
   position: fixed;
@@ -462,6 +482,16 @@ h1 {
 .window-body p {
   color: var(--muted);
   line-height: 1.72;
+  font-family: var(--font-readable);
+  letter-spacing: 0.01em;
+}
+
+.window-body .year,
+.window-body h2,
+.window-body h3,
+.titlebar strong,
+.contact-links a {
+  font-family: var(--font-display);
 }
 
 .terminal-line {
@@ -567,6 +597,23 @@ h3 {
 @keyframes blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(255, 116, 230, 0.95),
+      0 0 14px rgba(255, 79, 216, 0.9),
+      0 0 28px rgba(255, 79, 216, 0.62),
+      0 0 40px rgba(70, 246, 255, 0.2);
+  }
+  50% {
+    text-shadow:
+      0 0 8px rgba(255, 116, 230, 1),
+      0 0 18px rgba(255, 79, 216, 1),
+      0 0 36px rgba(255, 79, 216, 0.82),
+      0 0 54px rgba(70, 246, 255, 0.34);
+  }
 }
 
 
