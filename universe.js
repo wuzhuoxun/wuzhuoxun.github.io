@@ -9,9 +9,10 @@ let paused=reduced.matches,w=innerWidth,h=innerHeight,dpr=1,progress=0,target=0,
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),mix=(a,b,t)=>a+(b-a)*t,smooth=t=>{t=clamp(t);return t*t*(3-2*t)};
 let seed=42;const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};
 const stars=Array.from({length:95},()=>({x:rand(),y:rand(),r:rand()*1.05+.25,a:rand()*.5+.2,z:rand(),phase:rand()*6.28}));
-function resize(){const chapter=target;w=innerWidth;h=innerHeight;dpr=Math.min(devicePixelRatio||1,2);canvas.width=w*dpr;canvas.height=h*dpr;canvas.style.width=w+'px';canvas.style.height=h+'px';target=chapter;window.scrollTo(0,chapter*h);}
+function resize(){const chapter=target;w=innerWidth;h=innerHeight;dpr=Math.min(devicePixelRatio||1,1.25);canvas.width=w*dpr;canvas.height=h*dpr;canvas.style.width=w+'px';canvas.style.height=h+'px';target=chapter;window.scrollTo(0,chapter*h);}
 addEventListener('resize',resize);resize();
-const surface=document.createElement('canvas');surface.width=surface.height=640;
+const surface=document.createElement('canvas');surface.width=352;surface.height=288;
+const atlas=document.createElement("canvas");atlas.width=352;atlas.height=288;const atlasContext=atlas.getContext("2d");let atlasTime=-10;
 const gl=surface.getContext('webgl',{alpha:true,premultipliedAlpha:false,preserveDrawingBuffer:true,antialias:true});
 let program,ut,uk,ul;
 if(gl){
@@ -19,15 +20,20 @@ const vert='attribute vec2 p;varying vec2 uv;void main(){uv=p;gl_Position=vec4(p
 const frag=`precision highp float;varying vec2 uv;uniform float t;uniform float kind;uniform vec3 lightDirection;
 float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),f.x),f.y);}
-void main(){vec2 q=uv*1.055;float r=length(q);float outline=.0015*sin(atan(q.y,q.x)*71.)+.001*sin(atan(q.y,q.x)*137.);float edge=1.-smoothstep(.998+outline,1.005+outline,r);if(r>1.007){gl_FragColor=vec4(0.);return;}
+void main(){vec2 q=uv*1.055;float r=length(q);float outline=.004*sin(atan(q.y,q.x)*47.)+.002*sin(atan(q.y,q.x)*113.);float edge=1.-smoothstep(.998+outline,1.005+outline,r);if(r>1.007){gl_FragColor=vec4(0.);return;}
 vec3 n=vec3(q,sqrt(max(0.,1.-dot(q,q))));float a=t*.1;vec3 v=vec3(n.x*cos(a)+n.z*sin(a),n.y,n.z*cos(a)-n.x*sin(a));
 vec3 paint=v;vec3 normal=n;
 if(kind>.5){float tilt=.32;paint=vec3(v.x,v.y*cos(tilt)-v.z*sin(tilt),v.y*sin(tilt)+v.z*cos(tilt));}
 vec3 surfaceNormal=paint;
 vec3 col;
 if(kind<.5){
- float swirl=sin(paint.y*5.4+paint.x*2.1+sin(paint.z*3.5)*1.15)+.15*sin(paint.y*13.+paint.z*6.);
- col=mix(vec3(.53,.83,.78),vec3(.96,.66,.76),smoothstep(-.055,.055,swirl));
+ float land=sin(paint.x*4.+paint.z*2.)+.6*sin(paint.y*6.-paint.z*3.)+.25*sin(paint.x*11.+paint.y*9.);
+ float coast=smoothstep(.05,.13,land);
+ col=mix(vec3(.35,.75,.76),vec3(.91,.62,.71),coast);
+ float beach=(1.-smoothstep(.04,.11,abs(land-.09)))*.48;col=mix(col,vec3(.98,.85,.68),beach);
+ float wave=smoothstep(.96,.995,sin(paint.y*59.+sin(paint.x*17.+paint.z*13.)))*(1.-coast);
+ col+=vec3(.12,.18,.15)*wave;
+ float hills=noise(paint.xy*18.+paint.z*4.);col*=1.-coast*smoothstep(.6,.83,hills)*.12;
 }else if(kind<1.5){
  col=vec3(.94,.69,.47);
  for(int i=0;i<9;i++){
@@ -53,66 +59,43 @@ float light=dot(normal,normalize(lightDirection));
 float diffuse=.44+.25*smoothstep(.02,.07,light)+.26*smoothstep(.49,.56,light)+.05*max(0.,light);
 col*=diffuse;col=mix(col,col*vec3(.86,.91,1.12),.32*(1.-smoothstep(.0,.3,light)));
 float soft=pow(max(0.,dot(normal,normalize(normalize(lightDirection)+vec3(0.,0.,1.)))),24.);
-col+=vec3(.98,.94,.8)*soft*.09;
-col+=vec3(.12,.12,.10)*smoothstep(.72,.79,soft);
+col+=vec3(.98,.94,.8)*soft*.025;
+
 if(kind>1.5&&kind<2.5){float ringLine=q.y+.38*q.x;float shadow=smoothstep(-.19,-.14,ringLine)*(1.-smoothstep(-.06,-.02,ringLine));col*=1.-shadow*.2;}
 float paper=noise(paint.xy*95.+paint.z*29.)-.5;float grain=hash(gl_FragCoord.xy)-.5;col+=paper*.026+grain*.012;
 col+=vec3(.47,.65,.72)*pow(1.-n.z,5.)*.065;
 float pencil=1.-smoothstep(.98+outline,.995+outline,r);col=mix(vec3(.24,.31,.39),col,pencil*.86+.14);
 gl_FragColor=vec4(col,edge);}`;
 function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s}
-try{program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vert));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,frag));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error('Shader link failed');gl.useProgram(program);const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);const loc=gl.getAttribLocation(program,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);ut=gl.getUniformLocation(program,'t');uk=gl.getUniformLocation(program,'kind');ul=gl.getUniformLocation(program,'lightDirection');gl.viewport(0,0,640,640);}catch(e){console.warn('Using canvas planet fallback.',e);program=null;}
+try{program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vert));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,frag));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error('Shader link failed');gl.useProgram(program);const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);const loc=gl.getAttribLocation(program,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);ut=gl.getUniformLocation(program,'t');uk=gl.getUniformLocation(program,'kind');ul=gl.getUniformLocation(program,'lightDirection');gl.viewport(0,0,256,256);}catch(e){console.warn('Using canvas planet fallback.',e);program=null;}
 }
 function sphere(x,y,r,color){ctx.save();ctx.fillStyle=color;ctx.strokeStyle='#414b55';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();ctx.stroke();ctx.beginPath();ctx.arc(x,y,r-.7,0,7);ctx.clip();ctx.fillStyle='#3a506338';ctx.beginPath();ctx.ellipse(x+r*.6,y+r*.25,r*.68,r, .5,0,7);ctx.fill();ctx.fillStyle='#fff9e9';ctx.beginPath();ctx.ellipse(x-r*.3,y-r*.45,r*.17,r*.09,-.55,0,7);ctx.fill();ctx.restore();}
 function sparkle(x,y,r,a,color='#d4ded6'){ctx.save();ctx.globalAlpha=a;ctx.strokeStyle=color;ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(x-r,y);ctx.quadraticCurveTo(x,y,x,y-r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.quadraticCurveTo(x,y,x,y+r);ctx.quadraticCurveTo(x,y,x-r,y);ctx.stroke();ctx.restore()}
-// A thin annular ribbon in the orbital plane: projected width and shading
-// change around the ellipse. Slow waves and travelling strokes add movement.
+// Broken, puffy chalk ribbons. Only a handful of paths per orbit.
 function orbit(cx,cy,rx,ry,rot,alpha,front=false){
- ctx.save();ctx.translate(cx,cy);ctx.rotate(rot);
- const tilt=ry/rx,start=front?0:Math.PI,segments=128;
- const width=Math.max(4,Math.min(10,rx*.025));
- const point=(a,side)=>{
-  const wave=Math.sin(a*3-time*.34+rx*.005)*width*.11;
-  const twist=1+.14*Math.sin(a*4+time*.26);
-  const radius=rx+wave+side*width*.5*twist;
-  return [Math.cos(a)*radius,Math.sin(a)*radius*tilt];
- };
- for(let i=0;i<segments;i++){
-  const a=start+i/segments*Math.PI,b=start+(i+1)/segments*Math.PI;
-  const mid=(a+b)*.5,depth=.5+.5*Math.abs(Math.sin(mid));
-  const flow=.82+.18*Math.sin(mid*3-time*.42+rx*.004);
-  const opacity=alpha*depth*flow*(front?.43:.22);
-  const tint=.5+.5*Math.sin(mid*2-time*.17);
-  ctx.fillStyle=`rgba(${Math.round(163+36*tint)},${Math.round(203-13*tint)},${Math.round(204+9*tint)},${opacity})`;
-  const p0=point(a,-1),p1=point(b,-1),p2=point(b,1),p3=point(a,1);
-  ctx.beginPath();ctx.moveTo(...p0);ctx.lineTo(...p1);ctx.lineTo(...p2);ctx.lineTo(...p3);ctx.closePath();ctx.fill();
- }
- // Unequal edges keep the ribbon light, with a drawn rather than metallic finish.
- for(const side of [-1,1]){
-  ctx.beginPath();for(let i=0;i<=segments;i++){const p=point(start+i/segments*Math.PI,side);i?ctx.lineTo(...p):ctx.moveTo(...p)}
-  ctx.strokeStyle=`rgba(184,213,206,${alpha*(front?.44:.2)*(side===1?1:.6)})`;ctx.lineWidth=side===1?.65:.4;ctx.stroke();
- }
- // Short, soft highlights travel along the ribbon without turning into dashes.
- for(let k=0;k<3;k++){
-  const center=((time*.12+k*Math.PI*2/3+rx*.009)%(Math.PI*2));
-  const length=.13;
-  for(let j=0;j<12;j++){
-   const a=center+(j/12-.5)*length,b=a+length/12;
-   if(a<start||b>start+Math.PI)continue;
-   const strength=Math.sin((j+.5)/12*Math.PI);
-   ctx.strokeStyle=`rgba(221,231,217,${alpha*strength*(front?.45:.18)})`;ctx.lineWidth=1;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(...point(a,.08));ctx.lineTo(...point(b,.08));ctx.stroke();
-  }
+ ctx.save();ctx.translate(cx,cy);ctx.rotate(rot);ctx.lineJoin='round';
+ const tilt=ry/rx,start=front?0:Math.PI,width=Math.max(7,Math.min(18,rx*.045));
+ for(let k=0;k<4;k++){
+  const a=start+k*Math.PI/4+.035,b=a+Math.PI/4-(k%3===0?.26:.12);
+  const point=(t,side)=>{const phase=t*29+rx*.015;const puff=Math.sin((t-a)/(b-a)*Math.PI);const shift=Math.sin(t*5+time*.2)*width*.12;const thick=(.35+.65*puff)*(1+.24*Math.sin(phase)+.1*Math.sin(phase*2.7));const rr=rx+shift+side*width*thick;return [Math.cos(t)*rr,Math.sin(t)*rr*tilt]};
+  ctx.beginPath();for(let i=0;i<=22;i++){const p=point(a+(b-a)*i/22,1);i?ctx.lineTo(...p):ctx.moveTo(...p)}for(let i=22;i>=0;i--)ctx.lineTo(...point(a+(b-a)*i/22,-.5));ctx.closePath();
+  ctx.fillStyle=k%2?`rgba(167,187,205,${alpha*(front?.48:.28)})`:`rgba(204,197,215,${alpha*(front?.42:.24)})`;ctx.fill();ctx.strokeStyle=`rgba(152,184,199,${alpha*(front?.75:.4)})`;ctx.lineWidth=.8;ctx.stroke();
+  ctx.beginPath();for(let i=0;i<=22;i++){const p=point(a+(b-a)*i/22,.32);i?ctx.lineTo(...p):ctx.moveTo(...p)}ctx.strokeStyle=`rgba(233,224,199,${alpha*(front?.8:.35)})`;ctx.lineWidth=1.2;ctx.setLineDash([31,12,15,9]);ctx.lineDashOffset=-time*3;ctx.stroke();ctx.setLineDash([]);
  }
  ctx.restore();
+}
+function updateAtlas(bodies){
+ if(!program||time-atlasTime<1/24)return;atlasTime=time;
+ gl.useProgram(program);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
+ gl.viewport(0,0,256,256);gl.uniform1f(ut,time*.6);gl.uniform1f(uk,0);gl.uniform3f(ul,-.65,.8,1.3);gl.drawArrays(gl.TRIANGLES,0,6);
+ for(const body of bodies){const k=body.kind;gl.viewport(256,k*96,96,96);gl.uniform1f(ut,time*(k===0?.75:1.1)+k*15);gl.uniform1f(uk,k+1);gl.uniform3f(ul,-body.ox/body.distance*.9,-body.oy/body.distance*.9+.25,.65);gl.drawArrays(gl.TRIANGLES,0,6)}
+ atlasContext.clearRect(0,0,352,288);atlasContext.drawImage(surface,0,0);
 }
 function planetRing(x,y,r,front){ctx.save();ctx.translate(x,y);ctx.rotate(-.38);for(let i=0;i<4;i++){ctx.strokeStyle=['#cabbd89c','#e5cfbaa8','#c9c7dfa0','#7f859670'][i];ctx.lineWidth=r*.095;ctx.beginPath();ctx.ellipse(0,0,r*(1.5+i*.1),r*(.48+i*.036),0,front?0:Math.PI,front?Math.PI:Math.PI*2);ctx.stroke()}ctx.restore()}
 function drawPlanet(body){
  const {x,y,r,kind}=body;if(kind===1)planetRing(x,y,r,false);
- if(program){
-  gl.useProgram(program);gl.uniform1f(ut,time*(kind===0?.75:1.1)+kind*15);gl.uniform1f(uk,kind+1);
-  gl.uniform3f(ul,-body.ox/body.distance*.9,-body.oy/body.distance*.9+.25,.65);
-  gl.drawArrays(gl.TRIANGLES,0,6);ctx.drawImage(surface,x-r*1.055,y-r*1.055,r*2.11,r*2.11);
- }else sphere(x,y,r,['#edbb94','#bcb6df','#9ac9d9'][kind]);
+ if(program)ctx.drawImage(atlas,256,192-kind*96,96,96,x-r*1.055,y-r*1.055,r*2.11,r*2.11);
+ else sphere(x,y,r,['#edbb94','#bcb6df','#9ac9d9'][kind]);
  if(kind===1)planetRing(x,y,r,true);
 }
 // The orbit is a circular path in a tilted 3D plane. z controls occlusion.
@@ -162,7 +145,43 @@ for(let i=0;i<24;i++){ctx.save();ctx.rotate(i*Math.PI/12+.045);ctx.translate(0,-
 ctx.restore();
 }
 
-function render(t){requestAnimationFrame(render);if(document.hidden){last=t;return}const dt=Math.min((t-last)/1000||0,.05);last=t;if(!paused)time+=dt;progress+= (target-progress)*(reduced.matches?1:1-Math.exp(-dt*4.5));mx+=(px-mx)*.04;my+=(py-my)*.04;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#080a0d';ctx.fillRect(0,0,w,h);
+const mountainSites=[];
+for(let i=0;i<60;i++){const lon=i*2.399,lat=Math.asin(-.8+(i%13)/12*1.6),x=Math.cos(lat)*Math.sin(lon),y=Math.sin(lat),z=Math.cos(lat)*Math.cos(lon);const land=Math.sin(x*4+z*2)+.6*Math.sin(y*6-z*3)+.25*Math.sin(x*11+y*9);if(land>.55&&mountainSites.length<17)mountainSites.push({x,y,z,size:.06+(i%3)*.024});}
+function drawMountains(cx,cy,r){
+ const a=time*.06;
+ const visible=mountainSites.map(p=>({...p,nx:p.x*Math.cos(a)-p.z*Math.sin(a),nz:p.x*Math.sin(a)+p.z*Math.cos(a)})).filter(p=>p.nz>.2).sort((a,b)=>a.nz-b.nz);
+ for(const p of visible){const x=cx+p.nx*r,y=cy-p.y*r,size=r*p.size;ctx.save();ctx.translate(x,y);ctx.scale(.5+.5*p.nz,.7+.3*p.nz);ctx.rotate(p.nx*.22);
+ ctx.fillStyle='#536d8050';ctx.beginPath();ctx.ellipse(size*.25,size*.1,size*.92,size*.26,0,0,7);ctx.fill();
+ path([[-size,0],[-size*.57,-size*.48],[-size*.35,-size*.4],[0,-size*1.18],[size*.33,-size*.53],[size*.57,-size*.65],[size,0]],'#d5b5cd','#647586',Math.max(.65,r*.005));
+ path([[0,-size*1.18],[size*.33,-size*.53],[size*.57,-size*.65],[size,0],[size*.1,-size*.12]],'#929dbb',null);
+ path([[-size*.23,-size*.66],[0,-size*1.18],[size*.24,-size*.69],[size*.06,-size*.78],[-size*.06,-size*.64]],'#fff0c9',null);
+ line([[-size*.66,0],[-size*.2,-size*.15],[0,-size*.43]],'#7f8198',Math.max(.5,r*.003));ctx.restore();
+ }
+}
+const nameCanvas=document.createElement('canvas');nameCanvas.className='burn-name';nameCanvas.setAttribute('aria-hidden','true');document.querySelector('#name').append(nameCanvas);
+const nameContext=nameCanvas.getContext('2d'),letterLayer=document.createElement('canvas'),letterContext=letterLayer.getContext('2d');let nameWidth=0,nameHeight=0,burnStart=-1,nameWasVisible=false,nameComplete=false;
+document.fonts.ready.then(()=>{nameWidth=0;nameComplete=false});
+function drawName(now,p){
+ const active=p>.35&&p<1.8;
+ if(!active){nameWasVisible=false;return}if(!nameWasVisible){burnStart=now;nameWasVisible=true;nameComplete=false}
+ if(nameComplete&&nameWidth===w&&nameHeight===h)return;
+ if(nameWidth!==w||nameHeight!==h){nameWidth=w;nameHeight=h;nameCanvas.width=letterLayer.width=w;nameCanvas.height=letterLayer.height=h;
+  let size=Math.min(w*.195,h*.285);letterContext.font=`${size}px 'Lilita One', 'Arial Black', sans-serif`;size*=Math.min(1,w*.94/letterContext.measureText('ZHUOXUN').width);
+  letterContext.font=`${size}px 'Lilita One', 'Arial Black', sans-serif`;letterContext.textAlign='center';letterContext.lineJoin='round';letterContext.fillStyle='#ffedbb';letterContext.strokeStyle='#555365';letterContext.lineWidth=Math.max(2,size*.018);
+  for(const [word,y] of [['ZHUOXUN',h*.45],['WU',h*.45+size*.92]]){letterContext.strokeText(word,w*.5,y);letterContext.fillText(word,w*.5,y)}
+ }
+ nameCanvas.classList.add('ready');document.querySelector('#name').classList.add('has-burn');const amount=reduced.matches?1:clamp((now-burnStart)/1900);if(amount>=1)nameComplete=true;const g=nameContext;g.clearRect(0,0,w,h);g.globalCompositeOperation='source-over';g.drawImage(letterLayer,0,0);
+ if(amount<1){
+  const edge=h*.85-amount*h*.86;const pts=[];for(let i=0;i<=90;i++){const x=i*w/90;const y=edge+Math.sin(i*1.79+now*.005)*h*.014+Math.sin(i*.41-now*.003)*h*.03;pts.push([x,y])}
+  g.globalCompositeOperation='destination-in';g.beginPath();g.moveTo(0,h);for(const v of pts)g.lineTo(...v);g.lineTo(w,h);g.closePath();g.fill();
+  g.globalCompositeOperation='source-atop';for(const [color,width] of [['#db713b',18],['#ffb84d',10],['#fff0a5',3]]){g.beginPath();pts.forEach((v,i)=>i?g.lineTo(...v):g.moveTo(...v));g.strokeStyle=color;g.lineWidth=width;g.stroke()}
+  g.globalCompositeOperation='source-over';for(let i=0;i<14;i++){const x=(i*.071+.03)*w,y=edge-14-(Math.sin(i*4+now*.002)+1)*25;g.fillStyle=i%2?'#efaa5b':'#ffe0a2';g.globalAlpha=Math.sin(amount*Math.PI)*.7;g.fillRect(x,y,2,3)}g.globalAlpha=1;
+ }
+}
+
+let perfFrames=0,perfStart=0,lastUI=-99;
+function render(t){requestAnimationFrame(render);if(!perfStart)perfStart=t;if(++perfFrames>=60){canvas.dataset.fps=(60000/(t-perfStart)).toFixed(1);perfFrames=0;perfStart=t;}if(document.hidden){last=t;return}const dt=Math.min((t-last)/1000||0,.05);last=t;if(!paused)time+=dt;progress+= (target-progress)*(reduced.matches?1:1-Math.exp(-dt*4.5));mx+=(px-mx)*.04;my+=(py-my)*.04;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#080a0d';ctx.fillRect(0,0,w,h);
+drawName(t,progress);
 const p=progress,inside=smooth((p-2.3)/.6),mobile=w<761;
 for(let s of stars){let x=(s.x*w+mx*s.z*14+p*s.z*27)%w,y=(s.y*h+my*s.z*12-p*s.z*16+h)%h;ctx.globalAlpha=s.a*(.8+.2*Math.sin(time*.5+s.phase));ctx.fillStyle=s.z>.7?'#9dd4cf':'#dce3da';ctx.beginPath();ctx.arc(x,y,s.r*(mobile?.7:1),0,7);ctx.fill();if(s.z>.985)sparkle(x,y,5,.7)}ctx.globalAlpha=1;
 const base=Math.min(w*.112,h*.17),zoom=smooth((p-1.2)/1.6),entry=smooth((p-2.0)/.9);
@@ -170,18 +189,20 @@ const R=Math.max(w*.8,h*.8),top=h*(mobile?.84:.79),cx=w*.5+mx*4,cy=mix(h*.48,top
 let turn=(p-3)*Math.PI*2/3;
 if(entry<.998){
 const fade=1-entry;ctx.save();ctx.globalAlpha=fade;
-const unit=r/.9,orbitAlpha=.48*(1-zoom*.8),bodies=[0,1,2].map(i=>orbitBody(cx,cy,unit,i,time));
+const unit=r/.9,orbitAlpha=.58*(1-zoom*.8),bodies=[0,1,2].map(i=>orbitBody(cx,cy,unit,i,time));updateAtlas(bodies);
 // Draw rear arcs and planets first, then the star, then front arcs and planets.
 for(const body of bodies)orbit(cx,cy,body.distance,body.distance*body.tilt,body.rot,orbitAlpha,false);
 for(const body of bodies.filter(b=>b.z<0).sort((a,b)=>a.z-b.z))drawPlanet(body);
 const halo=ctx.createRadialGradient(cx,cy,r*.8,cx,cy,r*1.35);halo.addColorStop(0,'#a9dcd914');halo.addColorStop(1,'#a9dcd900');ctx.fillStyle=halo;ctx.fillRect(cx-r*1.35,cy-r*1.35,r*2.7,r*2.7);
-if(program){gl.useProgram(program);gl.uniform1f(ut,time*.6);gl.uniform1f(uk,0);gl.uniform3f(ul,-.65,.8,1.3);gl.drawArrays(gl.TRIANGLES,0,6);ctx.drawImage(surface,cx-r*1.055,cy-r*1.055,r*2.11,r*2.11)}else sphere(cx,cy,r,'#a3dcd4');
+if(program)ctx.drawImage(atlas,0,32,256,256,cx-r*1.055,cy-r*1.055,r*2.11,r*2.11);else sphere(cx,cy,r,'#a3dcd4');drawMountains(cx,cy,r);
 for(const body of bodies)orbit(cx,cy,body.distance,body.distance*body.tilt,body.rot,orbitAlpha,true);
 for(const body of bodies.filter(b=>b.z>=0).sort((a,b)=>a.z-b.z))drawPlanet(body);
 ctx.restore();}
 if(entry>.001){ctx.save();ctx.globalAlpha=entry;drawTerrain(w*.5,top+R,R,turn,mobile);ctx.restore();}
+if(Math.abs(p-lastUI)>.0004){lastUI=p;
 for(let i=0;i<scenes.length;i++){const dist=Math.abs(p-i);let opacity=1-smooth((dist-.08)/.4);if(i===0)opacity=1-smooth(p/.7);if(i===5)opacity=smooth((p-4.25)/.6);const visible=opacity>.015;scenes[i].style.opacity=opacity;scenes[i].classList.toggle('active',visible);scenes[i].inert=!visible;scenes[i].style.transform=i>=3?`translate(${(i-p)*80}px,0)`:`translateY(${(i-p)*35}px)`;}
 document.body.classList.toggle('on-surface',p>2.6);document.querySelector('.header-note').textContent=p>2.6?['ABOUT','EDUCATION','CONTACT'][clamp(Math.round(p)-3,0,2)]:'ZHUOXUN WU';const chapter=clamp(Math.round(p)-2,0,3);document.querySelector('.chapter-nav').classList.toggle('visible',p>2.6);document.querySelectorAll('.chapter-nav a').forEach((a,i)=>{a.classList.toggle('selected',chapter===i+1);if(chapter===i+1)a.setAttribute('aria-current','step');else a.removeAttribute('aria-current')});document.querySelector('#counter').textContent=`0${chapter} — 03`;document.querySelector('#scroll-label').textContent=p>4.65?'BACK TO TOP':p>2.6?'NEXT SECTION':'SCROLL';
+}
 }
 function go(index){index=clamp(index,0,5);window.scrollTo({top:index*h,behavior:'instant'});}
 addEventListener('scroll',()=>{target=clamp(scrollY/h,0,5)},{passive:true});
