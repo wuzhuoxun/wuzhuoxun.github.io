@@ -1,21 +1,22 @@
 # Zhuoxun Wu — Personal Website
 
-A static, responsive academic homepage for Zhuoxun Wu, a PhD student in Electrical and Computer Engineering at the University of Southern California.
+Personal academic website for Zhuoxun Wu, a PhD student in Electrical and Computer Engineering at the University of Southern California.
 
-## Features
+## Experience
 
-- Direct profile, current affiliation, education, and contact information
-- Original animated alien-ecology art direction
-- Pointer-responsive hero illustration, particle life forms, and interactive education cards
-- Responsive mobile navigation
-- Reduced-motion accessibility support
-- No build step or framework required
+- Animated star system with cel-shaded planets and moving orbital ribbons.
+- Scroll-driven name reveal, surface approach, and About / Education / Contact chapters.
+- Curved surface scenes with three rotating landmarks.
+- Keyboard navigation, touch support, direct chapter links, and reduced-motion support.
+- Procedural WebGL artwork with a Canvas fallback; no build step required.
 
 ## Files
 
-- `index.html`
-- `style.css`
-- `script.js`
-- `alien-field-v2.webp`
+- `index.html`: profile, education, contact links, and navigation.
+- `style.css`: desktop and mobile layouts.
+- `universe.js`: rendering and interaction.
+- `.nojekyll`: static GitHub Pages publishing.
 
-The default branch is published directly through GitHub Pages.
+The `main` branch is published through GitHub Pages at https://wuzhuoxun.github.io/.
+
+To preview locally, run `python -m http.server 8765` in this directory.
