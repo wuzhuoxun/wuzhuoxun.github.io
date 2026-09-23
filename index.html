@@ -1,150 +1,195 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zhuoxun Wu | Cyberpunk Personal Desktop</title>
-  <meta name="description" content="Zhuoxun Wu's cyberpunk blue-pink GitHub Pages personal homepage." />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="scanlines" aria-hidden="true"></div>
-  <div class="noise" aria-hidden="true"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Zhuoxun Wu is a PhD student in Electrical and Computer Engineering at the University of Southern California, supervised by Prof. Wei Wu."
+    />
+    <meta name="theme-color" content="#1c2927" />
+    <title>Zhuoxun Wu — USC ECE PhD Student</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-  <main class="desktop" id="desktop">
-    <section class="hero" aria-label="Profile introduction">
-      <div class="status-bar">
-        <span class="status-dot"></span>
-        <span>ONLINE</span>
-        <span class="divider">//</span>
-        <span>GITHUB.IO DESKTOP</span>
-      </div>
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="Zhuoxun Wu, back to top">
+        <span class="brand-mark" aria-hidden="true">ZW</span>
+        <span class="brand-name">Zhuoxun Wu</span>
+      </a>
 
-      <p class="eyebrow">Personal Interface</p>
-
-      <h1 class="name-stack">
-        <span class="glitch" data-text="Zhuoxun Wu">Zhuoxun Wu</span>
-        <span class="cn-name neon-cn">吴卓迅</span>
-      </h1>
-
-      <p class="tagline typing-tagline">
-        <span
-          id="typed-tagline"
-          class="typed-subtext"
-          data-texts='["Electrical and Electronic Engineering Student,","University of Liverpool"]'
-          aria-live="polite"
-        >Electrical and Electronic Engineering Student,</span>
-        <span class="typing-caret small" aria-hidden="true"></span>
-      </p>
-    </section>
-
-    <section class="folder-dock" aria-label="Desktop folders">
-      <button class="folder" data-window="about" aria-controls="window-about" type="button">
-        <span class="folder-icon" aria-hidden="true"></span>
-        <span class="folder-label" data-final="About Me">About Me</span>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span>Menu</span><i aria-hidden="true"></i>
       </button>
-      <button class="folder" data-window="education" aria-controls="window-education" type="button">
-        <span class="folder-icon" aria-hidden="true"></span>
-        <span class="folder-label" data-final="Education">Education</span>
-      </button>
-      <button class="folder" data-window="interest" aria-controls="window-interest" type="button">
-        <span class="folder-icon" aria-hidden="true"></span>
-        <span class="folder-label" data-final="Interest">Interest</span>
-      </button>
-      <button class="folder" data-window="contact" aria-controls="window-contact" type="button">
-        <span class="folder-icon" aria-hidden="true"></span>
-        <span class="folder-label" data-final="Contact">Contact</span>
-      </button>
-    </section>
 
-    <section class="window" id="window-about" data-window-panel="about" aria-label="About Me window">
-      <div class="titlebar">
-        <div class="window-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
-        <strong>about_me.exe</strong>
-        <button class="close" aria-label="Close About Me window" type="button">×</button>
-      </div>
-      <div class="window-body">
-        <h2>About Me</h2>
-        <p>I am Zhuoxun Wu, an Electrical and Electronic Engineering student at the University of Liverpool with a strong academic record and hands-on research experience in bioelectronic sensing, flexible electronics, and smart sensor systems.</p>
-        <div class="terminal-list research-focus-box">
-          <h3>Research Focus</h3>
-          <p>Bioelectronic sensing materials, flexible electronics, smart sensor systems, hydrogel electrodes for EMG recording, FET biosensors, and electronic measurement systems.</p>
+      <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+        <a href="#about"><span>01</span> About</a>
+        <a href="#education"><span>02</span> Education</a>
+        <a href="#contact"><span>03</span> Contact</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-art" aria-hidden="true"></div>
+        <div class="hero-shade" aria-hidden="true"></div>
+        <canvas class="life-layer" id="life-layer" aria-hidden="true"></canvas>
+
+        <div class="hero-copy" data-tilt>
+          <p class="hero-label"><span></span>Current position · 2026</p>
+          <h1 id="hero-title">Zhuoxun Wu <em>吴卓迅</em></h1>
+          <p class="hero-role">PhD Student in Electrical and Computer Engineering</p>
+
+          <div class="hero-affiliation">
+            <p>
+              <span>Institution</span>
+              University of Southern California
+            </p>
+            <p>
+              <span>Department</span>
+              Ming Hsieh Department of ECE
+            </p>
+            <p>
+              <span>Advisor</span>
+              <a href="https://viterbi.usc.edu/directory/faculty/Wu/Wei" target="_blank" rel="noreferrer">Prof. Wei Wu ↗</a>
+            </p>
+          </div>
         </div>
-      </div>
-    </section>
 
-    <section class="window" id="window-education" data-window-panel="education" aria-label="Education window">
-      <div class="titlebar">
-        <div class="window-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
-        <strong>education.log</strong>
-        <button class="close" aria-label="Close Education window" type="button">×</button>
-      </div>
-      <div class="window-body">
-        <h2>Education</h2>
-        <div class="timeline">
-          <article>
-            <span class="year">Sep 2024 — May 2026</span>
-            <h3>University of Liverpool</h3>
-            <p>Bachelor of Engineering in Electrical and Electronic Engineering, Electronic Engineering Pathway.</p>
-            <p>GPA: 3.97/4.0 · Major GPA: 4.0/4.0 · Rank: 1st / 253.</p>
-            <p>Core courses include Instrumentation & Control, Electrical Circuits & Power Systems, Digital Electronics & Microprocessor Systems, CMOS Integrated Circuits, Amplifier Circuits, and Signals and Systems.</p>
+        <div class="hero-note" aria-hidden="true">
+          <span>Los Angeles, California</span>
+          <span>Move pointer to interact</span>
+        </div>
+
+        <a class="scroll-button" href="#about" aria-label="Continue to About">
+          <span>Scroll</span><i aria-hidden="true"></i>
+        </a>
+      </section>
+
+      <section class="about section" id="about" aria-labelledby="about-title">
+        <div class="section-label reveal" aria-hidden="true">
+          <span>01</span><i></i><span>About</span>
+        </div>
+
+        <div class="about-layout">
+          <div class="about-heading reveal">
+            <p class="eyebrow">Profile</p>
+            <h2 id="about-title">PhD student at USC.</h2>
+          </div>
+
+          <div class="about-copy reveal">
+            <p>
+              I am a PhD student in Electrical and Computer Engineering at the University of
+              Southern California, supervised by
+              <a href="https://viterbi.usc.edu/directory/faculty/Wu/Wei" target="_blank" rel="noreferrer">Prof. Wei Wu</a>.
+            </p>
+            <p>
+              Before joining USC, I studied Electrical and Electronic Engineering at the University
+              of Liverpool and Electronic Science and Technology at Xi'an Jiaotong-Liverpool University.
+            </p>
+          </div>
+        </div>
+
+        <div class="current-card reveal" data-hover-card>
+          <div class="current-card-mark" aria-hidden="true">
+            <span>USC</span>
+            <i></i><i></i><i></i>
+          </div>
+          <div>
+            <p class="eyebrow">Current affiliation</p>
+            <h3>USC Viterbi School of Engineering</h3>
+            <p>Ming Hsieh Department of Electrical and Computer Engineering</p>
+          </div>
+          <span class="current-card-year">Present</span>
+        </div>
+      </section>
+
+      <section class="education section" id="education" aria-labelledby="education-title">
+        <div class="organism organism-a" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="organism organism-b" aria-hidden="true"><i></i><i></i></div>
+
+        <div class="section-label section-label-light reveal" aria-hidden="true">
+          <span>02</span><i></i><span>Education</span>
+        </div>
+
+        <div class="education-heading reveal">
+          <p class="eyebrow">Academic background</p>
+          <h2 id="education-title">Education</h2>
+        </div>
+
+        <div class="education-list">
+          <article class="education-item reveal" data-hover-card>
+            <div class="education-year">
+              <span>Present</span>
+              <i aria-hidden="true"></i>
+            </div>
+            <div class="education-main">
+              <p class="eyebrow">Los Angeles, California</p>
+              <h3>University of Southern California</h3>
+              <p>PhD Student · Electrical and Computer Engineering</p>
+              <p class="advisor">Supervised by <a href="https://viterbi.usc.edu/directory/faculty/Wu/Wei" target="_blank" rel="noreferrer">Prof. Wei Wu ↗</a></p>
+            </div>
+            <span class="education-code">USC / 01</span>
           </article>
-          <article>
-            <span class="year">Sep 2022 — Sep 2024</span>
-            <h3>Xi'an Jiaotong-Liverpool University</h3>
-            <p>Bachelor of Engineering in Electronic Science and Technology.</p>
-            <p>Core courses include Electromagnetism and Electromechanics, Electrical Circuits, Electronic Circuits, Integrated Electronics and Design, Engineering Mathematics, Linear Algebra, Multivariable Calculus, and Physics.</p>
+
+          <article class="education-item reveal" data-hover-card>
+            <div class="education-year">
+              <span>2024—2026</span>
+              <i aria-hidden="true"></i>
+            </div>
+            <div class="education-main">
+              <p class="eyebrow">Liverpool, United Kingdom</p>
+              <h3>University of Liverpool</h3>
+              <p>Bachelor of Engineering · Electrical and Electronic Engineering</p>
+            </div>
+            <span class="education-code">UOL / 02</span>
           </article>
-          <article>
-            <span class="year">Awards</span>
-            <h3>Honors & Recognition</h3>
-            <p>David Inglis Dawbarn Prize 2025 · Dean's List, University of Liverpool · XJTLU Excellence Scholarship · University Academic Achievement Award · Excellent Student Ambassador of the University.</p>
+
+          <article class="education-item reveal" data-hover-card>
+            <div class="education-year">
+              <span>2022—2024</span>
+              <i aria-hidden="true"></i>
+            </div>
+            <div class="education-main">
+              <p class="eyebrow">Suzhou, China</p>
+              <h3>Xi'an Jiaotong-Liverpool University</h3>
+              <p>Bachelor of Engineering · Electronic Science and Technology</p>
+            </div>
+            <span class="education-code">XJTLU / 03</span>
           </article>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="window" id="window-interest" data-window-panel="interest" aria-label="Interest window">
-      <div class="titlebar">
-        <div class="window-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
-        <strong>interest.folder</strong>
-        <button class="close" aria-label="Close Interest window" type="button">×</button>
-      </div>
-      <div class="window-body">
-        <h2>Interest</h2>
-        <div class="grid-list hobbies-only">
-          <article>
-            <h3>Extracurricular Hobbies</h3>
-            <p>Badminton, esports, swimming, movies, music, guitar, board games, and Gobang chess.</p>
-          </article>
+      <section class="contact" id="contact" aria-labelledby="contact-title">
+        <div class="contact-art" aria-hidden="true">
+          <div class="contact-cell"><i></i><i></i><i></i><i></i></div>
         </div>
-      </div>
-    </section>
 
-    <section class="window" id="window-contact" data-window-panel="contact" aria-label="Contact window">
-      <div class="titlebar">
-        <div class="window-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
-        <strong>contact.link</strong>
-        <button class="close" aria-label="Close Contact window" type="button">×</button>
-      </div>
-      <div class="window-body">
-        <h2>Contact</h2>
-        <p>Feel free to reach out for research collaboration, engineering projects, academic discussion, or creative technology ideas.</p>
-        <div class="contact-links">
-          <a href="mailto:sgzwu30@liverpool.ac.uk">Email</a>
-          <a href="https://github.com/wuzhuoxun" target="_blank" rel="noreferrer">GitHub</a>
-          <a href="https://www.linkedin.com/in/zhuoxun-wu-liverpool/" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a href="https://www.xiaohongshu.com/user/profile/62c6268b000000000303e7ea" target="_blank" rel="noreferrer">RedNote</a>
+        <div class="contact-copy reveal">
+          <p class="eyebrow">03 · Contact</p>
+          <h2 id="contact-title">Contact</h2>
+          <p>For academic and professional inquiries, connect with me through the links below.</p>
+          <div class="contact-links">
+            <a href="https://github.com/wuzhuoxun" target="_blank" rel="noreferrer"><span>GitHub</span><i>↗</i></a>
+            <a href="https://www.linkedin.com/in/zhuoxun-wu-liverpool/" target="_blank" rel="noreferrer"><span>LinkedIn</span><i>↗</i></a>
+            <a href="https://www.xiaohongshu.com/user/profile/62c6268b000000000303e7ea" target="_blank" rel="noreferrer"><span>RedNote</span><i>↗</i></a>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
 
-  <footer class="taskbar">
-    <span>Mayhem_OS</span>
-    <span id="clock">--:--</span>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
+        <footer class="site-footer">
+          <p>Zhuoxun Wu <span>© <span data-year></span></span></p>
+          <a href="#top">Back to top ↑</a>
+        </footer>
+      </section>
+    </main>
+  </body>
 </html>
