@@ -26,8 +26,3 @@ To preview locally, run `python -m http.server 8765` in this directory.
 The star includes illustrated oceans, coastlines, and mountain ranges. Orbital trails are broken cloud-like ribbons. Rounded cream lettering uses outlined headings and an ember-edge name reveal.
 
 Rendering uses one compact texture atlas instead of four full-resolution GPU readbacks. Slowly rotating surfaces update separately from smooth orbital motion. Stable scenes avoid redundant DOM updates. Reduced-motion preferences disable the ember animation and ambient movement.
-
-## Ocean and cloud update
-
-Independent seeded cloud trails have varied lengths, gaps, widths, and drifting wisps. The central planet uses an adaptive 384–640 px surface texture, with animated ocean currents, glints, and coastal foam. Texture updates remain separate from orbit animation.
-
